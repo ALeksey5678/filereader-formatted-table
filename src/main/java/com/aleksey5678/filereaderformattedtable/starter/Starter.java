@@ -2,24 +2,27 @@ package com.aleksey5678.filereaderformattedtable.starter;
 
 import com.aleksey5678.filereaderformattedtable.readers.AbbreviationsReader;
 import com.aleksey5678.filereaderformattedtable.readers.EndLog;
+import com.aleksey5678.filereaderformattedtable.readers.MapFormList;
 import com.aleksey5678.filereaderformattedtable.readers.StartLog;
+import com.aleksey5678.filereaderformattedtable.readers.StartLogByStreams;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 
 public class Starter {
     public static void main(String[] args) {
+        StartLogByStreams startLogByStreams=new StartLogByStreams();
         EndLog endLog = new EndLog();
         AbbreviationsReader abbreviationsReader = new AbbreviationsReader();
         StartLog startLog=new StartLog();
-        abbreviationsReader.readFromAbbreviationsReader();
-        endLog.readFromEndLog();
-        startLog.readFromStartLog();
+       // abbreviationsReader.readFromAbbreviationsReader();
+       // endLog.readFromEndLog();
+        //startLog.readFromStartLog();
+        List<String> readFromStarter = startLogByStreams.readFromStarter("src/main/resources/start.log");
+       /* System.out.println(readFromStarter);*/
+        MapFormList mapFormList=new MapFormList();
+        mapFormList.getMapFromList(readFromStarter);
 
-
+//общий клас для чтения файлов, в чем хранить дату и время,Лист?
     }
 }

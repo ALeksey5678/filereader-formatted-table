@@ -11,13 +11,16 @@ public class AbbreviationsReader {
 
         try {
             BufferedReader readerFromFile = new BufferedReader(
-                    new FileReader("C:\\Users\\admin\\Desktop\\6 th lesson\\data\\abbreviations.txt"));
-            String informationAboutDrivers;
+                    new FileReader("src/main/resources/abbreviations.txt"));
+
             Map<String, String> completeCharacteristicByAbbreviationOfDrivers = new HashMap<>();
 
-            while ((informationAboutDrivers = readerFromFile.readLine()) != null) {
-                String fullInformationAboutDrivers = informationAboutDrivers.substring(3);
-                String abbreviationsOfDrivers = informationAboutDrivers.substring(0, 3);
+            while (true) {
+                String reader = readerFromFile.readLine();
+
+                if (!(reader != null)) break;
+                String fullInformationAboutDrivers = reader.substring(3);
+                String abbreviationsOfDrivers = reader.substring(0, 3);
                 completeCharacteristicByAbbreviationOfDrivers.put(abbreviationsOfDrivers, fullInformationAboutDrivers);
             }
 

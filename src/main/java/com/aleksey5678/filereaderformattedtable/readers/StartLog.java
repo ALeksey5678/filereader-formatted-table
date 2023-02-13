@@ -8,26 +8,36 @@ import java.util.Map;
 
 public class StartLog {
     public void readFromStartLog() {
+        BufferedReader readerFromFile=null;
         try {
-            BufferedReader readerFromFile = new BufferedReader(
-                    new FileReader("C:\\Users\\admin\\Desktop\\6 th lesson\\data\\start.log"));
-            String informationAboutDriversAndTimeWhenRacingBegan;
-            Map<String, String> timeOWhenRacingBeganByAbbreviationOfDrivers = new HashMap<>();
+            readerFromFile = new BufferedReader(
+                    new FileReader("src/main/resources/start.log"));
+            Map<String, String> racingStartTimeByAbbreviationOfDrivers = new HashMap<>();
 
-            while ((informationAboutDriversAndTimeWhenRacingBegan = readerFromFile.readLine()) != null) {
-                String timeOfRacing = informationAboutDriversAndTimeWhenRacingBegan.substring(3);
-                String abbreviationsOfDrivers = informationAboutDriversAndTimeWhenRacingBegan.substring(0, 3);
-                timeOWhenRacingBeganByAbbreviationOfDrivers.put(abbreviationsOfDrivers, timeOfRacing);
+            while (true) {
+                String reader = readerFromFile.readLine();
+
+                if (reader == null) break;
+                String timeOfRacing = reader.substring(3);
+                String abbreviationOfDrivers = reader.substring(0, 3);
+                racingStartTimeByAbbreviationOfDrivers.put(abbreviationOfDrivers, timeOfRacing);
             }
 
-            for (Map.Entry entry : timeOWhenRacingBeganByAbbreviationOfDrivers.entrySet()) {
+            for (Map.Entry entry : racingStartTimeByAbbreviationOfDrivers.entrySet()) {
                 System.out.println(entry);
             }
-            readerFromFile.close();
 
         } catch (
                 IOException e) {
             e.printStackTrace();
+        } finally {
+            if (readerFromFile != null) {
+                try {
+                    readerFromFile.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

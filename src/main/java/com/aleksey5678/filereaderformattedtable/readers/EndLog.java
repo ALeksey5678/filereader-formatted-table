@@ -11,13 +11,16 @@ public class EndLog {
 
         try {
             BufferedReader readerFromFile = new BufferedReader(
-                    new FileReader("C:\\Users\\admin\\Desktop\\6 th lesson\\data\\end.log"));
-            String informationAboutDriversAndRaceEndTime;
+                    new FileReader("src/main/resources/end.log"));
+
             Map<String, String> raceEndTimeByAbbreviationOfDrivers = new HashMap<>();
 
-            while ((informationAboutDriversAndRaceEndTime = readerFromFile.readLine()) != null) {
-                String raceEndTime = informationAboutDriversAndRaceEndTime.substring(3);
-                String abbreviationsOfDrivers = informationAboutDriversAndRaceEndTime.substring(0, 3);
+            while (true) {
+                String reader = readerFromFile.readLine();
+
+                if (!(reader != null)) break;
+                String raceEndTime = reader.substring(3);
+                String abbreviationsOfDrivers = reader.substring(0, 3);
                 raceEndTimeByAbbreviationOfDrivers.put(abbreviationsOfDrivers, raceEndTime);
             }
 
