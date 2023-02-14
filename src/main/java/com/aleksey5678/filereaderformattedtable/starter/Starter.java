@@ -2,6 +2,7 @@ package com.aleksey5678.filereaderformattedtable.starter;
 
 import com.aleksey5678.filereaderformattedtable.readers.AbbreviationsReader;
 import com.aleksey5678.filereaderformattedtable.readers.EndLog;
+import com.aleksey5678.filereaderformattedtable.readers.FromStringToDate;
 import com.aleksey5678.filereaderformattedtable.readers.MapFormList;
 import com.aleksey5678.filereaderformattedtable.readers.StartLog;
 import com.aleksey5678.filereaderformattedtable.readers.StartLogByStreams;
@@ -19,10 +20,12 @@ public class Starter {
        // endLog.readFromEndLog();
         //startLog.readFromStartLog();
         List<String> readFromStarter = startLogByStreams.readFromStarter("src/main/resources/start.log");
+        List<String> readFromFinish = startLogByStreams.readFromStarter("src/main/resources/end.log");
        /* System.out.println(readFromStarter);*/
         MapFormList mapFormList=new MapFormList();
-        mapFormList.getMapFromList(readFromStarter);
-
+        FromStringToDate fromStringToDate=new FromStringToDate();
+        System.out.println(fromStringToDate.formatFromStringToDate(mapFormList.getMapFromList(readFromStarter)));
+        System.out.println(fromStringToDate.formatFromStringToDate(mapFormList.getMapFromList(readFromFinish)));
 //общий клас для чтения файлов, в чем хранить дату и время,Лист?
     }
 }

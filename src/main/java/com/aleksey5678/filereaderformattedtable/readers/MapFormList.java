@@ -9,11 +9,11 @@ import java.util.Map;
 public class MapFormList {
     Map<String, String>map=new HashMap<>();
 
-    public  void getMapFromList(List<String>readFromStarter){
+    public  Map<String,String> getMapFromList(List<String>readFromStarter){
         for(String i :readFromStarter){
             map.put(i.substring(0, 3), i.substring(3));
         }
-        System.out.println(map);
+       return map;
     }
 
 }

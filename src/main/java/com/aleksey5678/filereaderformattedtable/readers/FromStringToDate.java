@@ -18,7 +18,7 @@ public class FromStringToDate {
 
     public Date dateFromString(String value) {
 
-        DateFormat format = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss.SSS");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss.SSS");
 
         try {
             Date date = format.parse(value);
