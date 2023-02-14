@@ -1,10 +1,8 @@
 package com.aleksey5678.filereaderformattedtable.starter;
 
 import com.aleksey5678.filereaderformattedtable.readers.AbbreviationsReader;
-import com.aleksey5678.filereaderformattedtable.readers.EndLog;
 import com.aleksey5678.filereaderformattedtable.readers.FromStringToDate;
 import com.aleksey5678.filereaderformattedtable.readers.MapFormList;
-import com.aleksey5678.filereaderformattedtable.readers.StartLog;
 import com.aleksey5678.filereaderformattedtable.readers.StartLogByStreams;
 
 import java.util.List;
@@ -16,12 +14,8 @@ public class Starter {
         EndLog endLog = new EndLog();
         AbbreviationsReader abbreviationsReader = new AbbreviationsReader();
         StartLog startLog=new StartLog();
-       // abbreviationsReader.readFromAbbreviationsReader();
-       // endLog.readFromEndLog();
-        //startLog.readFromStartLog();
         List<String> readFromStarter = startLogByStreams.readFromStarter("src/main/resources/start.log");
         List<String> readFromFinish = startLogByStreams.readFromStarter("src/main/resources/end.log");
-       /* System.out.println(readFromStarter);*/
         MapFormList mapFormList=new MapFormList();
         FromStringToDate fromStringToDate=new FromStringToDate();
         System.out.println(fromStringToDate.formatFromStringToDate(mapFormList.getMapFromList(readFromStarter)));
