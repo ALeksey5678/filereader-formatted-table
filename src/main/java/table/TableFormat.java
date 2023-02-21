@@ -1,18 +1,10 @@
-package com.aleksey5678.filereaderformattedtable.starter;
-import com.aleksey5678.filereaderformattedtable.counting.ConvertedTimeForFinalResult;
+package table;
 
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 public class TableFormat {
     public void buildTheTableForOutputTheResult(Map<String, String> convertedTimeOfDrivingByFUllName) {
-        // build the table
-        StringBuilder table = new StringBuilder();
-        // find the maximum lengths of each column
-        int maxPlaceLength = Integer.toString(convertedTimeOfDrivingByFUllName.size()).length();
+
         int maxNameLength = 0;
         int maxTeamLength = 0;
         for (String racer : convertedTimeOfDrivingByFUllName.keySet()) {
@@ -23,9 +15,6 @@ public class TableFormat {
             maxTeamLength = Math.max(maxTeamLength, team.length());
         }
 
-        // add each racer to the table
-        int place = 1;
-        // Calculate column widths
         int placeWidth = Integer.max(4, String.valueOf(convertedTimeOfDrivingByFUllName.size()).length());
         int nameWidth = 0;
         int teamWidth = 0;
@@ -42,10 +31,8 @@ public class TableFormat {
             timeWidth = Integer.max(timeWidth, time.length());
         }
 
-// Build table header
         StringBuilder sb = new StringBuilder();
 
-// Build table rows
         int placeOfRacers = 1;
         for (String key : convertedTimeOfDrivingByFUllName.keySet()) {
             String[] parts = key.split("_");
@@ -68,9 +55,7 @@ public class TableFormat {
 
             placeOfRacers++;
         }
-
-// Print table
-            System.out.println(sb.toString());
+            System.out.println(sb);
         }
     }
 
