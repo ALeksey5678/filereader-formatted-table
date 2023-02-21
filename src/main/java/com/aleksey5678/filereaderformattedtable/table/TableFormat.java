@@ -1,4 +1,4 @@
-package table;
+package com.aleksey5678.filereaderformattedtable.table;
 
 import java.util.Map;
 

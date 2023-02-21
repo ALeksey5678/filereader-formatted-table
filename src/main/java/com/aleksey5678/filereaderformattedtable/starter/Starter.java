@@ -7,7 +7,7 @@ import com.aleksey5678.filereaderformattedtable.readers.FromStringToDate;
 import com.aleksey5678.filereaderformattedtable.readers.FullNameByAbbreviation;
 import com.aleksey5678.filereaderformattedtable.readers.MapFormList;
 import com.aleksey5678.filereaderformattedtable.readers.StartLogByStreams;
-import table.TableFormat;
+import com.aleksey5678.filereaderformattedtable.table.TableFormat;
 
 import java.util.Date;
 import java.util.List;

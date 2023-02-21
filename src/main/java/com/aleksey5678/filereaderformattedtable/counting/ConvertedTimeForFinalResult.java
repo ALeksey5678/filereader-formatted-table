@@ -18,9 +18,9 @@ public class ConvertedTimeForFinalResult {
 
             long minutes = duration.toMinutes() % 60;
             long seconds = duration.getSeconds() % 60;
-            long ms = duration.toMillis() % 1000;
+            long milliseconds = duration.toMillis() % 1000;
 
-            String formattedTime = String.format("%02d:%02d.%03d", minutes, seconds, ms);
+            String formattedTime = String.format("%02d:%02d.%03d", minutes, seconds, milliseconds);
             convertedTimeOfRacingByAbbreviation.put(abbreviations, formattedTime);
         }
 
