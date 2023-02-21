@@ -22,7 +22,6 @@ public class FromStringToDate {
 
         try {
             Date date = format.parse(value);
-            System.out.println(date);
             return date;
         } catch (ParseException e) {
             e.printStackTrace();

@@ -1,13 +1,12 @@
 package com.aleksey5678.filereaderformattedtable.counting;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ConvertedTimeForFinalResult {
 
-    public  Map<String, String> convertTimeFromMillisecondsToHours(Map<String, Long> timeInMillisecondsByAbbreviation) {
+    public Map<String, String> convertTimeFromMillisecondsToHours(Map<String, Long> timeInMillisecondsByAbbreviation) {
 
         Map<String, String> convertedTimeOfRacingByAbbreviation = new HashMap<>();
 
@@ -15,22 +14,16 @@ public class ConvertedTimeForFinalResult {
             String abbreviations = entry.getKey();
             long timeInMilliseconds = entry.getValue();
 
-            int millisecondsInSecond = 1000;
-            int secondsInMinute = 60;
-            int minutesInHour = 60;
-            int hoursInDay = 24;
+            Duration duration = Duration.ofMillis(timeInMilliseconds);
 
-            long hours = (timeInMilliseconds / (millisecondsInSecond * secondsInMinute * minutesInHour)) % hoursInDay;
-            long minutes = (timeInMilliseconds / (millisecondsInSecond * secondsInMinute)) % minutesInHour;
-            long seconds = (timeInMilliseconds / millisecondsInSecond) % secondsInMinute;
-            long ms = timeInMilliseconds % millisecondsInSecond;
+            long minutes = duration.toMinutes() % 60;
+            long seconds = duration.getSeconds() % 60;
+            long ms = duration.toMillis() % 1000;
 
-            Date date = new Date(0, 0, 0, (int) hours, (int) minutes, (int) seconds);
-            date.setTime(date.getTime() + ms);
-            String formattedDate=new SimpleDateFormat("HH:mm:ss.SSSS").format(date);
-            convertedTimeOfRacingByAbbreviation.put(abbreviations, formattedDate);
-
+            String formattedTime = String.format("%02d:%02d.%03d", minutes, seconds, ms);
+            convertedTimeOfRacingByAbbreviation.put(abbreviations, formattedTime);
         }
+
         return convertedTimeOfRacingByAbbreviation;
     }
 }

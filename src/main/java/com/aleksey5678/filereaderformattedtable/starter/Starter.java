@@ -22,6 +22,7 @@ public class Starter {
         MapFormList mapFormList = new MapFormList();
         FromStringToDate fromStringToDate = new FromStringToDate();
         ConvertedTimeForFinalResult convertedTimeForFinalResult = new ConvertedTimeForFinalResult();
+        TableFormat tableFormat=new TableFormat();
 
         List<String> readFromStarter = startLogByStreams.readFromStarter("src/main/resources/start.log");
         List<String> readFromFinish = startLogByStreams.readFromStarter("src/main/resources/end.log");
@@ -34,15 +35,16 @@ public class Starter {
                 fromStringToDate.formatFromStringToDate(mapFormList.getMapFromList(readFromFinish));
         Map<String, Long> timeOfRaceByKey = starter.countRaceTime(DateOfStartByName, DateOfFinishByName);
         Map<String, String> fullNameByAbbreviation = mapFormList.getMapFromList(readFromAbbreviations);
-        Map<String, Long> sortedTimeFromSmallestToLargest = starter.sortedTimeFromSmallestToLargest(timeOfRaceByKey);
         Map<String, Long> timeOfRacingByFullNameOfDrivers =
-                starter.putFullNameOfDriversInsteadOfAbbreviations(sortedTimeFromSmallestToLargest, fullNameByAbbreviation);
-        Map<String, String> TimeOfRacingInHoursMinutesSecondsByFullNameOfDrivers =
+                starter.putFullNameOfDriversInsteadOfAbbreviations(timeOfRaceByKey, fullNameByAbbreviation);
+        Map<String,String> timeOfRacingInHoursMinutesSecondsByFullNameOfDrivers =
                 convertedTimeForFinalResult.convertTimeFromMillisecondsToHours(timeOfRacingByFullNameOfDrivers);
-
-       /* System.out.println(timeOfRacingByFullNameOfDrivers);
-        System.out.println(starter.buildTableFromMap(timeOfRacingByFullNameOfDrivers));*/
-        System.out.println(TimeOfRacingInHoursMinutesSecondsByFullNameOfDrivers);
+        Map<String, String> sortedTimeOfRacingByFullName = starter.sortedTimeFromSmallestToLargest(timeOfRacingInHoursMinutesSecondsByFullNameOfDrivers);
+        //System.out.println(starter.sortedTimeFromSmallestToLargest(timeOfRacingInHoursMinutesSecondsByFullNameOfDrivers));
+       // System.out.println(timeOfRacingByFullNameOfDrivers);
+       // System.out.println(starter.buildTableFromMap(timeOfRacingByFullNameOfDrivers));
+      //  System.out.println(timeOfRacingInHoursMinutesSecondsByFullNameOfDrivers);
+        tableFormat.buildTheTableForOutputTheResult(sortedTimeOfRacingByFullName);
     }
 
     public Map<String, Long> countRaceTime(Map<String, Date> start, Map<String, Date> finish) {
@@ -56,8 +58,8 @@ public class Starter {
         return timeInMillisecondsByAbbreviation;
     }
 
-    public Map<String, Long> sortedTimeFromSmallestToLargest(Map<String, Long> differenceBetweenFinishAndStart) {
-        Map<String, Long> sortedMap = new LinkedHashMap<>();
+    public Map<String, String> sortedTimeFromSmallestToLargest(Map<String, String> differenceBetweenFinishAndStart) {
+        Map<String, String> sortedMap = new LinkedHashMap<>();
         differenceBetweenFinishAndStart.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
                 .forEachOrdered(entry -> sortedMap.put(entry.getKey(), entry.getValue()));
@@ -65,38 +67,15 @@ public class Starter {
         return sortedMap;
     }
 
-    public Map<String, Long> putFullNameOfDriversInsteadOfAbbreviations(Map<String, Long> timeOfRacingByAbbreviations,
+
+    public Map<String, Long> putFullNameOfDriversInsteadOfAbbreviations(Map<String, Long> sortedTimeOfRacingByAbbreviations,
                                                                         Map<String, String> fullNAmeByAbbreviations) {
         Map<String, Long> timeOfRacingByFullName = new HashMap<>();
-        for (String key : timeOfRacingByAbbreviations.keySet()) {
+        for (String key : sortedTimeOfRacingByAbbreviations.keySet()) {
             String newKey = fullNAmeByAbbreviations.get(key);
-            timeOfRacingByFullName.put(newKey, timeOfRacingByAbbreviations.get(key));
+            timeOfRacingByFullName.put(newKey, sortedTimeOfRacingByAbbreviations.get(key));
         }
         return timeOfRacingByFullName;
-    }
-
-    public String buildTableFromMap(Map<String, Long> sortedTimeOfRaceByFullNameOfDrivers) throws IOException {
-        StringBuilder tableBuilder = new StringBuilder();
-
-        tableBuilder.append(String.format("|%45s|%10s|\n", "Racers", "Time"));
-        tableBuilder.append("+---------------------------------------------+-----------+\n");
-
-        for (Map.Entry<String, Long> entry : sortedTimeOfRaceByFullNameOfDrivers.entrySet()) {
-            String nameOfRacers = entry.getKey();
-            Long timeOfRacing = entry.getValue();
-            tableBuilder.append(String.format("|%45s|%10s|\n", nameOfRacers, timeOfRacing));
-        }
-        try (BufferedReader reader = new BufferedReader(new StringReader(tableBuilder.toString()))) {
-            StringBuilder result = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line).append("\n");
-            }
-            return result.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }
 
