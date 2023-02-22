@@ -6,15 +6,15 @@ import java.util.Map;
 
 public class ConvertedTimeForFinalResult {
 
-    public Map<String, String> convertTimeFromMillisecondsToHours(Map<String, Long> timeInMillisecondsByAbbreviation) {
+    public Map<String, String> convertTimeFromMillisecondsToHours(Map<String, Duration> timeInMillisecondsByAbbreviation) {
 
         Map<String, String> convertedTimeOfRacingByAbbreviation = new HashMap<>();
 
-        for (Map.Entry<String, Long> entry : timeInMillisecondsByAbbreviation.entrySet()) {
+        for (Map.Entry<String, Duration> entry : timeInMillisecondsByAbbreviation.entrySet()) {
             String abbreviations = entry.getKey();
-            long timeInMilliseconds = entry.getValue();
+             entry.getValue();
 
-            Duration duration = Duration.ofMillis(timeInMilliseconds);
+            Duration duration =entry.getValue();
 
             long minutes = duration.toMinutes() % 60;
             long seconds = duration.getSeconds() % 60;

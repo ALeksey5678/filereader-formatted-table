@@ -9,6 +9,7 @@ import com.aleksey5678.filereaderformattedtable.readers.MapFormList;
 import com.aleksey5678.filereaderformattedtable.readers.StartLogByStreams;
 import com.aleksey5678.filereaderformattedtable.table.TableFormat;
 
+import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -34,9 +35,9 @@ public class Starter {
                 fromStringToDate.formatFromStringToDate(mapFormList.getMapFromList(readFromStarter));
         Map<String, Date> finishOfRacingByName =
                 fromStringToDate.formatFromStringToDate(mapFormList.getMapFromList(readFromFinish));
-        Map<String, Long> timeOfRaceByKey = countingOfRaceTime.countRaceTime(startOfRacingByName, finishOfRacingByName);
+        Map<String, Duration> timeOfRaceByKey = countingOfRaceTime.countRaceTime(startOfRacingByName, finishOfRacingByName);
         Map<String, String> fullNameByAbbreviation = mapFormList.getMapFromList(readFromAbbreviations);
-        Map<String, Long> timeOfRacingByFullNameOfDrivers =
+        Map<String, Duration> timeOfRacingByFullNameOfDrivers =
                 fullNameByAbbreviationObj.putFullNameOfDriversInsteadOfAbbreviations(timeOfRaceByKey, fullNameByAbbreviation);
         Map<String,String> timeOfRacingInHoursMinutesSecondsByFullNameOfDrivers =
                 convertedTimeForFinalResult.convertTimeFromMillisecondsToHours(timeOfRacingByFullNameOfDrivers);
