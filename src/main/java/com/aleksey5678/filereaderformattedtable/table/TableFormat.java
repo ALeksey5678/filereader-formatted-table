@@ -3,7 +3,7 @@ package com.aleksey5678.filereaderformattedtable.table;
 import java.util.Map;
 
 public class TableFormat {
-    public void buildTheTableForOutputTheResult(Map<String, String> convertedTimeOfDrivingByFUllName) {
+    public String buildTheTableForOutputTheResult(Map<String, String> convertedTimeOfDrivingByFUllName) {
 
         int maxNameLength = 0;
         int maxTeamLength = 0;
@@ -55,7 +55,7 @@ public class TableFormat {
 
             placeOfRacers++;
         }
-            System.out.println(sb);
+            return sb.toString().trim();
         }
     }
 
