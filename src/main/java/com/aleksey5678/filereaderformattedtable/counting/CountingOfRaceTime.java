@@ -8,11 +8,13 @@ import java.util.Map;
 public class CountingOfRaceTime {
     public Map<String, Duration> countRaceTime(Map<String, Date> start, Map<String, Date> finish) {
         Map<String, Duration> timeInMillisecondsByAbbreviation = new HashMap<>();
-        for (String key : start.keySet()) {
-            Date date1 = start.get(key);
-            Date date2 = finish.get(key);
-           Duration duration=Duration.between(date1.toInstant(), date2.toInstant());
-           timeInMillisecondsByAbbreviation.put(key,duration);
+
+        for (Map.Entry<String, Date> nameAndTime : start.entrySet()) {
+            String abbreviation = nameAndTime.getKey();
+            Date startDate = nameAndTime.getValue();
+            Date finishDate = finish.get(abbreviation);
+            Duration timeOfRacingInMilliseconds = Duration.between(startDate.toInstant(), finishDate.toInstant());
+            timeInMillisecondsByAbbreviation.put(abbreviation, timeOfRacingInMilliseconds);
         }
         return timeInMillisecondsByAbbreviation;
     }

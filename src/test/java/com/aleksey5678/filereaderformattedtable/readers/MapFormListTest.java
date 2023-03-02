@@ -10,10 +10,10 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MapFormListTest {
-    private final MapFormList mapFormList=new MapFormList();
+    private final MapFormList mapFormList = new MapFormList();
 
     @Test
-    void getMapFromList() {
+    void shouldGetMapFromList() {
 
         List<String> inputList = Arrays.asList("ASD12345", "AZX21345", "MUQ0987");
         Map<String, String> expectedMap = new HashMap<>();

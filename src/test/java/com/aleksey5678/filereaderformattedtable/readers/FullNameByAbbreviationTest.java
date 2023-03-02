@@ -12,7 +12,7 @@ class FullNameByAbbreviationTest {
     private final FullNameByAbbreviation fullNameByAbbreviation = new FullNameByAbbreviation();
 
     @Test
-    void putFullNameOfDriversInsteadOfAbbreviations() {
+    void shouldPutFullNameOfDriversInsteadOfAbbreviations() {
         Map<String, Duration> timeOfRacingByAbbreviations = new HashMap<>();
         timeOfRacingByAbbreviations.put("AB", Duration.ofMinutes(60));
         timeOfRacingByAbbreviations.put("BRB", Duration.ofMillis(50));
@@ -28,11 +28,10 @@ class FullNameByAbbreviationTest {
         expectedResult.put("BE Right Back", Duration.ofMillis(50));
         expectedResult.put("Being Absolutely Boring", Duration.ofMinutes(54).plusSeconds(15));
 
-        Map<String, Duration> actualTimeByFullNameOfDrivers =
-                fullNameByAbbreviation.putFullNameOfDriversInsteadOfAbbreviations(timeOfRacingByAbbreviations, fullNAmeByAbbreviation);
+        Map<String, Duration> actualResult =
+                fullNameByAbbreviation.putFullNameOfDriversInsteadOfAbbreviations
+                        (timeOfRacingByAbbreviations, fullNAmeByAbbreviation);
 
-        assertEquals(expectedResult, actualTimeByFullNameOfDrivers);
-
-
+        assertEquals(expectedResult, actualResult);
     }
 }

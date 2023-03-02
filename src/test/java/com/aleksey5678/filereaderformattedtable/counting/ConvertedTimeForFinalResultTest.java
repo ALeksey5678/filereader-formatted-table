@@ -12,14 +12,13 @@ class ConvertedTimeForFinalResultTest {
 
     private final ConvertedTimeForFinalResult convertedTimeForFinalResult = new ConvertedTimeForFinalResult();
 
-
     @Test
-    public void testConvertTimeFromMillisecondsToHours() {
+    void shouldFormatTimeFromDurationToStringWithRightFormat() {
         Map<String, Duration> input = new HashMap<>();
         input.put("A", Duration.ofMillis(100));
         input.put("N", Duration.ofMinutes(10).plusSeconds(10));
 
-        Map<String, String> output = convertedTimeForFinalResult.convertTimeFromMillisecondsToHours(input);
+        Map<String, String> output = convertedTimeForFinalResult.convertTimeFromMillisecondsToMinutes(input);
 
         assertEquals("00:00.100", output.get("A"));
         assertEquals("10:10.000", output.get("N"));

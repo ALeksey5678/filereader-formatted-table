@@ -4,9 +4,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class TimeSorting {
-    public Map<String, String> sortedTimeFromSmallestToLargest(Map<String, String> differenceBetweenFinishAndStart) {
+    public Map<String, String> sortedTimeFromSmallestToLargest(Map<String, String> differenceBetweenTimeOfFinishAndStart) {
         Map<String, String> sortedMap = new LinkedHashMap<>();
-        differenceBetweenFinishAndStart.entrySet().stream()
+        differenceBetweenTimeOfFinishAndStart.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
                 .forEachOrdered(entry -> sortedMap.put(entry.getKey(), entry.getValue()));
 

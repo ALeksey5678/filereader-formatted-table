@@ -4,6 +4,5 @@ public class Starter {
     public static void main(String[] args) {
 AllProgramLogic allProgramLogic=new AllProgramLogic();
         System.out.println(allProgramLogic.returnTableWithOutput());
-
     }
 }

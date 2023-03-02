@@ -3,6 +3,8 @@ package com.aleksey5678.filereaderformattedtable.table;
 import java.util.Map;
 
 public class TableFormat {
+    private static final int ADDITIONAL_EMPTY_SPACE = 1;
+
     public String buildTheTableForOutputTheResult(Map<String, String> convertedTimeOfDrivingByFUllName) {
 
         int maxNameLength = 0;
@@ -20,44 +22,46 @@ public class TableFormat {
         int teamWidth = 0;
         int timeWidth = 0;
 
-        for (String key : convertedTimeOfDrivingByFUllName.keySet()) {
-            String[] parts = key.split("_");
+        for (Map.Entry<String, String> nameAndTime : convertedTimeOfDrivingByFUllName.entrySet()) {
+            String[] parts = nameAndTime.getKey().split("_");
             String name = parts[1];
             String team = parts[2];
-            String time = convertedTimeOfDrivingByFUllName.get(key);
+            String time = nameAndTime.getValue();
 
-            nameWidth = Integer.max(nameWidth, name.length()+2);
-            teamWidth = Integer.max(teamWidth, team.length()+2);
+            nameWidth = Integer.max(nameWidth, name.length()) + ADDITIONAL_EMPTY_SPACE;
+            teamWidth = Integer.max(teamWidth, team.length()) + ADDITIONAL_EMPTY_SPACE;
             timeWidth = Integer.max(timeWidth, time.length());
         }
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder tableRows = new StringBuilder();
 
         int placeOfRacers = 1;
-        for (String key : convertedTimeOfDrivingByFUllName.keySet()) {
-            String[] parts = key.split("_");
+
+        for (Map.Entry<String, String> nameAndTime : convertedTimeOfDrivingByFUllName.entrySet()) {
+            String[] parts = nameAndTime.getKey().split("_");
             String name = parts[1];
             String team = parts[2];
-            String time = convertedTimeOfDrivingByFUllName.get(key);
-
-            sb.append(String.format("%-" + placeWidth + "d", placeOfRacers));
-            sb.append(String.format("%-" + nameWidth + "s", name));
-            sb.append(String.format("%-" + teamWidth + "s", team));
-            sb.append(String.format("%-" + timeWidth + "s", time));
-            sb.append("\n");
+            String time = nameAndTime.getValue();
+            String space = " ";
+            tableRows.append(placeOfRacers).append(space.repeat(amountOfSpaces(placeWidth, String.valueOf(placeOfRacers).length())));
+            tableRows.append(name).append(space.repeat(amountOfSpaces(nameWidth, name.length())));
+            tableRows.append(team).append(space.repeat(amountOfSpaces(teamWidth, team.length())));
+            tableRows.append(time).append(space.repeat(amountOfSpaces(timeWidth, time.length())));
+            tableRows.append("\n");
 
             if (placeOfRacers == 15) {
-                for (int generalWidth = 0; generalWidth < placeWidth + nameWidth + teamWidth + timeWidth; generalWidth++) {
-                    sb.append("_");
-                }
-                sb.append("\n");
+                tableRows.append("_".repeat(Math.max(0, placeWidth + nameWidth + teamWidth + timeWidth)));
+                tableRows.append("\n");
             }
-
             placeOfRacers++;
         }
-            return sb.toString().trim();
-        }
+        return tableRows.toString().trim();
     }
+
+    public int amountOfSpaces(int width, int expressionWidth) {
+        return width - expressionWidth;
+    }
+}
 
 
 

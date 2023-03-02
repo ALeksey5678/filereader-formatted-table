@@ -9,15 +9,14 @@ import java.util.stream.Stream;
 
 public class StartLogByStreams {
     public List<String> readFromStarter(String pathToFile) {
-        List<String> smth = null;
+        List<String> contentOfFile = null;
 
-        try (Stream<String>lines= Files.lines(Paths.get(pathToFile))){
-            smth=lines.collect(Collectors.toList());
-
+        try (Stream<String> lines = Files.lines(Paths.get(pathToFile))) {
+            contentOfFile = lines.collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return smth;
+        return contentOfFile;
     }
-        }
+}
 

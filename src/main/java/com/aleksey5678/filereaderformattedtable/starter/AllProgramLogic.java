@@ -15,15 +15,15 @@ import java.util.List;
 import java.util.Map;
 
 public class AllProgramLogic {
-    public String returnTableWithOutput(){
+    public String returnTableWithOutput() {
         StartLogByStreams startLogByStreams = new StartLogByStreams();
         MapFormList mapFormList = new MapFormList();
         FromStringToDate fromStringToDate = new FromStringToDate();
         ConvertedTimeForFinalResult convertedTimeForFinalResult = new ConvertedTimeForFinalResult();
-        TableFormat tableFormat=new TableFormat();
-        CountingOfRaceTime countingOfRaceTime=new CountingOfRaceTime();
-        TimeSorting timeSorting=new TimeSorting();
-        FullNameByAbbreviation fullNameByAbbreviationObj=new FullNameByAbbreviation();
+        TableFormat tableFormat = new TableFormat();
+        CountingOfRaceTime countingOfRaceTime = new CountingOfRaceTime();
+        TimeSorting timeSorting = new TimeSorting();
+        FullNameByAbbreviation fullNameByAbbreviationObj = new FullNameByAbbreviation();
 
         List<String> readFromStarter = startLogByStreams.readFromStarter("src/main/resources/start.log");
         List<String> readFromFinish = startLogByStreams.readFromStarter("src/main/resources/end.log");
@@ -37,13 +37,11 @@ public class AllProgramLogic {
         Map<String, String> fullNameByAbbreviation = mapFormList.getMapFromList(readFromAbbreviations);
         Map<String, Duration> timeOfRacingByFullNameOfDrivers =
                 fullNameByAbbreviationObj.putFullNameOfDriversInsteadOfAbbreviations(timeOfRaceByKey, fullNameByAbbreviation);
-        Map<String,String> timeOfRacingInHoursMinutesSecondsByFullNameOfDrivers =
-                convertedTimeForFinalResult.convertTimeFromMillisecondsToHours(timeOfRacingByFullNameOfDrivers);
+        Map<String, String> timeOfRacingInHoursMinutesSecondsByFullNameOfDrivers =
+                convertedTimeForFinalResult.convertTimeFromMillisecondsToMinutes(timeOfRacingByFullNameOfDrivers);
         Map<String, String> sortedTimeOfRacingByFullName = timeSorting.sortedTimeFromSmallestToLargest(timeOfRacingInHoursMinutesSecondsByFullNameOfDrivers);
 
-        String tableOutput = tableFormat.buildTheTableForOutputTheResult(sortedTimeOfRacingByFullName);
-
-    return  tableOutput;
+        return tableFormat.buildTheTableForOutputTheResult(sortedTimeOfRacingByFullName);
     }
-    }
+}
 
